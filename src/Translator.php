@@ -89,7 +89,7 @@ class Translator
      */
     public function getUsage(): Usage
     {
-        $response = $this->client->sendRequestWithBackoff('GET', '/v2/usage');
+        $response = $this->client->sendRequestWithBackoff('GET', '/v1/usage');
         $this->checkStatusCode($response);
         list(, $content) = $response;
         return new Usage($content);
@@ -122,7 +122,7 @@ class Translator
      */
     public function getGlossaryLanguages(): array
     {
-        $response = $this->client->sendRequestWithBackoff('GET', '/v2/glossary-language-pairs');
+        $response = $this->client->sendRequestWithBackoff('GET', '/v1/glossary-language-pairs');
         $this->checkStatusCode($response);
         list(, $content) = $response;
 
@@ -164,7 +164,7 @@ class Translator
 
         $response = $this->client->sendRequestWithBackoff(
             'POST',
-            '/v2/translate',
+            '/v1/translate',
             [HttpClientWrapper::OPTION_PARAMS => $params]
         );
         $this->checkStatusCode($response);
@@ -250,7 +250,7 @@ class Translator
 
         $response = $this->client->sendRequestWithBackoff(
             'POST',
-            '/v2/document',
+            '/v1/document',
             [
                 HttpClientWrapper::OPTION_PARAMS => $params,
                 HttpClientWrapper::OPTION_FILE => $inputFile,
@@ -374,7 +374,7 @@ class Translator
 
         $response = $this->client->sendRequestWithBackoff(
             'POST',
-            '/v2/glossaries',
+            '/v1/glossaries',
             [HttpClientWrapper::OPTION_PARAMS => $params]
         );
         $this->checkStatusCode($response, false, true);
@@ -415,7 +415,7 @@ class Translator
 
         $response = $this->client->sendRequestWithBackoff(
             'POST',
-            '/v2/glossaries',
+            '/v1/glossaries',
             [HttpClientWrapper::OPTION_PARAMS => $params]
         );
         $this->checkStatusCode($response, false, true);
@@ -444,7 +444,7 @@ class Translator
      */
     public function listGlossaries(): array
     {
-        $response = $this->client->sendRequestWithBackoff('GET', '/v2/glossaries');
+        $response = $this->client->sendRequestWithBackoff('GET', '/v1/glossaries');
         $this->checkStatusCode($response, false, true);
         list(, $content) = $response;
         return GlossaryInfo::parseList($content);
@@ -487,7 +487,7 @@ class Translator
     {
         $response = $this->client->sendRequestWithBackoff(
             'GET',
-            '/v2/languages',
+            '/v1/languages',
             [HttpClientWrapper::OPTION_PARAMS => ['type' => $target ? 'target' : 'source']]
         );
         $this->checkStatusCode($response);
